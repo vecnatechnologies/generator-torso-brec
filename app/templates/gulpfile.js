@@ -75,7 +75,7 @@ gulp.task('build-app', buildApp);
 /* Full build */
 gulp.task('build', function(callback) {
   browserifyBundler.add('./' + paths.app + '/main');
-  browserifyBundler.transform('aliasify');
+  browserifyBundler.transform('aliasify', {global: true});
   browserifyBundler.transform('hbsfy');
   runSequence('clean',
     [
