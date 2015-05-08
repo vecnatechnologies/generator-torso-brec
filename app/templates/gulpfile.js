@@ -38,7 +38,7 @@ gulp.task('copy-resources', copyResources);
 
 /* Build all styles */
 buildStyles = function() {
-  return gulp.src([paths.app + '/**/*.scss'])
+  return gulp.src([paths.app + '/styles/**/*.scss'])
   .pipe($.sass({
     includePaths: [brec.base.sass, brec.tables.sass],
     onSuccess: function(err) {
@@ -50,7 +50,7 @@ buildStyles = function() {
       log.warn('in file --> ' + err.file);
     }
   }))
-  .pipe(gulp.dest(paths.dist))
+  .pipe(gulp.dest(paths.dist + '/styles'))
 };
 gulp.task('build-styles', buildStyles);
 
@@ -68,13 +68,13 @@ buildApp = function() {
     .pipe($.util.env.type !== 'production' ? $.sourcemaps.init({loadMaps: true}) : $.util.noop())
     .pipe($.util.env.type === 'production' ? $.uglify() : $.util.noop())
     .pipe($.util.env.type !== 'production' ? $.sourcemaps.write('./') : $.util.noop())
-    .pipe(gulp.dest(paths.dist));
+    .pipe(gulp.dest(paths.dist + '/scripts'));
 };
 gulp.task('build-app', buildApp);
 
 /* Full build */
 gulp.task('build', function(callback) {
-  browserifyBundler.add('./' + paths.app + '/main');
+  browserifyBundler.add('./' + paths.app + '/scripts/main');
   browserifyBundler.transform('aliasify', {global: true});
   browserifyBundler.transform('hbsfy');
   runSequence('clean',
