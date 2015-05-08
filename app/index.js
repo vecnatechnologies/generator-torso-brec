@@ -9,8 +9,7 @@ var paths = {
   'app/main.js': {},
   'dist/.keepme': {},
   'package.json': {},
-  'gulpfile.js': {},
-  '.gitignore': {}
+  'gulpfile.js': {}
 };
 
 module.exports = generators.Base.extend({
@@ -23,6 +22,11 @@ module.exports = generators.Base.extend({
           context
       );
     }, this);
+    this.fs.copyTpl(
+      this.templatePath('_gitignore'),
+      this.destinationPath('.gitignore'),
+      {}
+    );
   },
 
   install: function () {
