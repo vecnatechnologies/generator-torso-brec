@@ -26,6 +26,9 @@ module.exports = generators.Base.extend({
   },
 
   install: function () {
-    this.npmInstall();
+    var generator = this;
+    this.npmInstall("", function() {
+      generator.spawnCommand('gulp', ['build']);
+    });
   }
 });
