@@ -3,10 +3,10 @@ var _ = require('underscore');
 
 var paths = {
   'app/index.html': {},
-  'app/home/homeView.js': {},
-  'app/home/home-template.hbs': {},
-  'app/app.scss': {},
-  'app/main.js': {},
+  'app/scripts/home/homeView.js': {},
+  'app/scripts/home/home-template.hbs': {},
+  'app/styles/app.scss': {},
+  'app/scripts/main.js': {},
   'dist/.keepme': {},
   'package.json': {},
   'gulpfile.js': {}
