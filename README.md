@@ -5,7 +5,7 @@ Yeoman generator for a project that uses torso and brec
 > cd path/to/project  
 > yo torso-brec  
 
-In the current direcory you're in, the generator will produce the following files:
+In your current directory, the generator will produce the following files:
   
   ├─ .gitignore  
   ├─ package.json  
