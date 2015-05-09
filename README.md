@@ -10,23 +10,23 @@
 > npm install -g generator-torso-brec
 
 ### Create a new project
-> cd path/to/project
+> cd path/to/project  
 > yo torso-brec
 
 In your current directory, the generator will produce the following files:
 
-  ├─ .gitignore
-  ├─ package.json
-  ├─ gulpfile.js
-  ├─ dist
-  └─ app
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ├─ main.js
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ├─ app.scss
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ├─ index.html
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     └─ home
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        ├─ homeView.js
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        └─ home-template.hbs
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        └─ _home.scss
+  ├─ .gitignore  
+  ├─ package.json  
+  ├─ gulpfile.js  
+  ├─ dist  
+  └─ app  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ├─ main.js  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ├─ app.scss  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ├─ index.html  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     └─ home  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        ├─ homeView.js  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        └─ home-template.hbs  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        └─ _home.scss  
 
 ## Credits
 Originally developed by [Vecna Technologies, Inc.](http://www.vecna.com/) and open sourced as part of its community service program. See the LICENSE file for more details.
