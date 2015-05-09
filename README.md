@@ -2,9 +2,10 @@
 Yeoman generator for a project that uses torso and brec
 
 > npm install --global generator-torso-brec  
-> yo torso-brec
+> cd path/to/project  
+> yo torso-brec  
 
-returns:
+In the current direcory you're in, the generator will produce the following files:
   
   ├─ .gitignore  
   ├─ package.json  
@@ -17,6 +18,7 @@ returns:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     └─ home  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        ├─ homeView.js  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        └─ home-template.hbs  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        └─ _home.scss  
 
 ## Credits
 Originally developed by [Vecna Technologies, Inc.](http://www.vecna.com/) and open sourced as part of its community service program. See the LICENSE file for more details.
