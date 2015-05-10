@@ -21,7 +21,7 @@ module.exports = generators.NamedBase.extend({
         this.destinationPath(this.name + '/' + templateName),
         {}
     );
-    console.log('building view');
+    console.log('building sass file');
     this.fs.copyTpl(
         this.templatePath('_styles.scss'),
         this.destinationPath(this.name + '/' + sassName),
