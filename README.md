@@ -25,8 +25,25 @@ In your current directory, the generator will produce the following files:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ├─ index.html  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     └─ home  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        ├─ homeView.js  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        └─ home-template.hbs  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        ├─ home-template.hbs  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        └─ _home.scss  
+
+## Pod Generator
+
+When creating an application, generating a new feature typically requires creating a view, template for that view, and sometimes special styling for that view as well. Pods are directories filled with these feature-specific files. Use the pod sub generator to rapidly create a pod pre-filled with a view, template, and scss file.  
+
+### Create a new pod
+> cd path/to/project/app  
+> yo torso-brec:pod foo  
+
+This will create the following files:  
+
+└─ foo  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ├─ fooView.js  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ├─ foo-template.hbs  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     └─ _foo.scss  
+
+If an app.scss file exists, it will add: @import 'foo/foo'; to that file
 
 ## Credits
 Originally developed by [Vecna Technologies, Inc.](http://www.vecna.com/) and open sourced as part of its community service program. See the LICENSE file for more details.
