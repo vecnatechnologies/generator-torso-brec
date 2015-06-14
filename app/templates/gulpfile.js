@@ -1,103 +1,15 @@
-var browserifyBundler, copyResources, buildStyles, buildApp, packageApp,
-    gulp = require('gulp'),
-    gulpLoadPlugins = require('gulp-load-plugins'),
-    $ = gulpLoadPlugins({}),
-    log = require('color-log'),
-    source = require('vinyl-source-stream'),
-    buffer = require('vinyl-buffer'),
-    watchify = require('watchify'),
-    browserify = require('browserify'),
-    runSequence = require('run-sequence'),
+var gulp = require('gulp'),
+    buildProcess = require('quick-sip')(gulp),
     brec = require('brec-tables'),
     paths = {
       app: 'app',
-      dist: 'dist'
+      dist: 'dist',
+      scripts: '',
+      styles: ''
     };
 
-/* Browserify bundler */
-watchify.args.debug = ($.util.env.type !== 'production');
-browserifyBundler = browserify(watchify.args);
-
-/* Empty the paths.dist directory */
-gulp.task('clean', function() {
-  return gulp.src(paths.dist, {read: false})
-    .pipe($.rimraf());
-});
-
-/* Copy all resources to dist */
-copyResources = function() {
-  log.mark('Copying resources...');
-  return gulp.src([
-      paths.app + '/**/*.*',
-      '!' + paths.app + '/**/*.+(js|hbs|scss)',
-    ])
-    .pipe(gulp.dest(paths.dist));
-};
-
-gulp.task('copy-resources', copyResources);
-
-/* Build all styles */
-buildStyles = function() {
-  return gulp.src([paths.app + '/**/*.scss'])
-  .pipe($.sass({
-    includePaths: [brec.base.sass, brec.tables.sass],
-    onSuccess: function(err) {
-      log.mark('[SUCCESS] {Sass} ' + err.css.length + ' bytes written (' + (err.stats.duration / 1000.0) + ' seconds)');
-    },
-    onError: function(err) {
-      log.error('[ERROR] {Sass} @ ' + (new Date()));
-      log.warn('Message: ' + err.message);
-      log.warn('in file --> ' + err.file);
-    }
-  }))
-  .pipe(gulp.dest(paths.dist))
-};
-gulp.task('build-styles', buildStyles);
-
-/* Reduce all javascript to app.js */
-buildApp = function() {
-  return browserifyBundler.bundle()
-    .on('error', function(err, b) {
-      delete err.stream;
-      log.error('[ERROR] {Browserify} @ ' + (new Date()));
-      log.warn(err.toString());
-      return true;
-    })
-    .pipe(source('app.js'))
-    .pipe(buffer())
-    .pipe($.util.env.type !== 'production' ? $.sourcemaps.init({loadMaps: true}) : $.util.noop())
-    .pipe($.util.env.type === 'production' ? $.uglify() : $.util.noop())
-    .pipe($.util.env.type !== 'production' ? $.sourcemaps.write('./') : $.util.noop())
-    .pipe(gulp.dest(paths.dist));
-};
-gulp.task('build-app', buildApp);
-
-/* Full build */
-gulp.task('build', function(callback) {
-  browserifyBundler.add('./' + paths.app + '/main');
-  browserifyBundler.transform('aliasify', {global: true});
-  browserifyBundler.transform('hbsfy');
-  runSequence('clean',
-    [
-      'copy-resources',
-      'build-styles',
-      'build-app'
-    ],
-    callback);
-});
-
-/* Watch build */
-gulp.task('watch', function() {
-  browserifyBundler = watchify(browserifyBundler);
-  browserifyBundler.on('update', buildApp);
-  browserifyBundler.on('log', function(err) {
-    log.mark('[SUCCESS] {Javascript} ' + err.toString());
-  });
-  gulp.start('build', function() {
-    gulp.watch(paths.app + '/**/*.scss', buildStyles);
-    gulp.watch([
-      paths.app + '/**/*.*',
-      '!' + paths.app + '/**/*.+(hbs|js|scss)',
-    ], copyResources);
-  });
-});
+buildProcess.configurePaths(paths);
+buildProcess.nonResources('js|hbs|scss');
+buildProcess.addToStylesIncludePaths([brec.base.sass, brec.tables.sass]);
+buildProcess.transform('aliasify', {global: true});
+buildProcess.transform('hbsfy');

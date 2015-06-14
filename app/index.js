@@ -5,6 +5,7 @@ var paths = {
   'app/index.html': {},
   'app/home/homeView.js': {},
   'app/home/home-template.hbs': {},
+  'app/home/_home.scss': {},
   'app/app.scss': {},
   'app/main.js': {},
   'dist/.keepme': {},
