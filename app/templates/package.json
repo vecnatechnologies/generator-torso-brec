@@ -7,7 +7,7 @@
   },
   "devDependencies": {
     "gulp": "^3.8.11",
-    "quick-sip": "0.1.1",
+    "quick-sip": "0.1.2",
     "aliasify": "^1.7.2",
     "hbsfy": "^2.2.1",
     "handlebars": "3.0.0"

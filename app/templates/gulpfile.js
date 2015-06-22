@@ -2,8 +2,8 @@ var gulp = require('gulp'),
     brec = require('brec-tables'),
     buildProcess = require('quick-sip')(gulp, {
       browserify: {
-        transformStack: [
-          {name: 'aliasify', options: {global: true}},
+        transforms: [
+          {transform: 'aliasify', options: {global: true}},
           'hbsfy'
         ]
       },
