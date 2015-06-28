@@ -12,6 +12,7 @@
     "type": "git",
     "url": "https://github.com/vecnatechnologies/generator-torso-brec.git"
   },
+  "license": "MIT",
   "keywords": [
     "yeoman-generator",
     "backbone-torso",

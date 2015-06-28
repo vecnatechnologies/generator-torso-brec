@@ -7,7 +7,8 @@ var paths = {
   'app/home/home-template.hbs': {},
   'app/home/_home.scss': {},
   'app/app.scss': {},
-  'app/main.js': {},
+  'app/app.js': {},
+  'app/router.js': {},
   'dist/.keepme': {},
   'package.json': {},
   'gulpfile.js': {}
