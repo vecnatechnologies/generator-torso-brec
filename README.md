@@ -4,14 +4,20 @@
 [Yeoman](http://yeoman.io/ "yoeman's website") can scaffold out a new application using prebuilt generators. This generator sets up a project using [backbone-torso](https://github.com/vecnatechnologies/backbone-torso) (a [backbone](http://backbonejs.org)-based framework) and [brec](https://github.com/vecnatechnologies/brec-base) (beautiful, responsive, ergonomic, and configurable) styling and plugins.
 
 ### Install yoeman
+```
 > npm install -g yo
+```
 
 ### Install generator-torso-brec
+```
 > npm install -g generator-torso-brec
+```
 
 ### Create a new project
+```
 > cd path/to/project
 > yo torso-brec
+```
 
 In your current directory, the generator will produce the following files:
 
@@ -34,8 +40,10 @@ In your current directory, the generator will produce the following files:
 When creating an application, generating a new feature typically requires creating a view, template for that view, and sometimes special styling for that view as well. Pods are directories filled with these feature-specific files. Use the pod sub generator to rapidly create a pod pre-filled with a view, template, and scss file.
 
 ### Create a new pod
+```
 > cd path/to/project/app
 > yo torso-brec:pod foo
+```
 
 This will create the following files:
 

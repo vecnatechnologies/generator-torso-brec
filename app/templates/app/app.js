@@ -1,7 +1,5 @@
 var $ = require('jquery');
 
-require('torso/node_modules/backbone').$ = $;
-
 // Expose some globals
 window.$ = $;
 window.jQuery = $;
