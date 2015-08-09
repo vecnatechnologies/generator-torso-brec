@@ -2,7 +2,7 @@
   "name": "your-torso-project",
   "version": "0.1.0",
   "dependencies": {
-    "backbone-torso": "0.2.0",
+    "backbone-torso": "0.2.1",
     "brec-tables": "0.2.5"
   },
   "devDependencies": {
