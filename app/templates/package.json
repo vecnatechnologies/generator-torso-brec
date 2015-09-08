@@ -5,6 +5,9 @@
     "backbone-torso": "0.2.1",
     "brec-tables": "0.2.5"
   },
+  "scripts": {
+    "gulp": "gulp"
+  },
   "devDependencies": {
     "gulp": "^3.8.11",
     "quick-sip": "0.1.6",
