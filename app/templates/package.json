@@ -9,7 +9,6 @@
     "gulp": "gulp"
   },
   "devDependencies": {
-    "gulp": "^3.8.11",
     "quick-sip": "0.1.6",
     "aliasify": "^1.7.2",
     "hbsfy": "^2.2.1",
