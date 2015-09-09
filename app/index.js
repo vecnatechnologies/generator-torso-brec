@@ -15,7 +15,7 @@ var paths = {
 };
 
 function logWarning(message) {
-  var warningSign = '\x1b[1m\x1b[31m<\x1b[96m\x21\x1b[31m>\x1b[21m\x1b[96m',
+  var warningSign = '\x1b[1m\x1b[31m<\x1b[96m\x21\x1b[31m>\x1b[21m\x1b[96m ',
       endSign = '\x1b[0m';
   console.log(warningSign + message + endSign);
 }
