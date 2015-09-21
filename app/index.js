@@ -1,6 +1,6 @@
 var generators = require('yeoman-generator');
 var _ = require('underscore');
-var clc = require('cli-color');
+var util = require('../util');
 
 var paths = {
   'app/index.html': {},
@@ -15,35 +15,24 @@ var paths = {
   'gulpfile.js': {}
 };
 
-function logWarning(message) {
-  var warningSign = clc.bold.cyan('<' + clc.bold.redBright('!') + '> ');
-  console.log(warningSign + clc.cyanBright(message));
+/**
+ * Spawns a child process for the `npm run gulp build` command
+ *
+ * @param  {Object} yeoman-generator
+ * @return {Object} ChildProcess object for the command
+ */
+function buildGulpWithNpm(generator) {
+  return generator.spawnCommand('npm', ['run', 'gulp', 'build']);
 }
 
-function outputWarning() {
-  var gulp = clc.magenta('gulp'),
-      prompt = clc.cyan('$ '),
-      npm = clc.magenta('npm'),
-      quicksip = clc.yellow('quick-sip'),
-      command = clc.redBright,
-      warn = clc.cyanBright;
-  logWarning('We have installed ' + gulp + ' locally to build your-torso-project.\n');
-  console.log(warn('To use the gulp tasks setup by ' + quicksip + ', you will need to use the ' + npm + ' run cli with the following command:\n'));
-  console.log(command(prompt + npm + ' run gulp ' + clc.bold.white('<task>')));
-  console.log();
-  console.log(warn('To remove ' + gulp + ' locally and setup ' + gulp + ' globally, run the following command:\n'));
-  console.log(command(prompt + npm + ' uninstall gulp ' +clc.white('&& ') + npm + ' install -g gulp'));
-}
-
-function installLocalGulpAndBuild(generator) {
-  generator.spawnCommand('npm', ['install', 'gulp', '--save-dev'])
-    .on('exit', function() {
-      logWarning('gulp installed locally');
-      generator.spawnCommand('npm', ['run', 'gulp', 'build'])
-        .on('exit', function () {
-          outputWarning();
-        });
-    });
+/**
+ * Spawns a child process for the `npm install gulp --save-dev` command
+ *
+ * @param  {Object} yeoman-generator
+ * @return {Object} ChildProcess object for the command
+ */
+function installLocalGulp(generator) {
+  return generator.spawnCommand('npm', ['install', 'gulp', '--save-dev']);
 }
 
 module.exports = generators.Base.extend({
@@ -65,15 +54,20 @@ module.exports = generators.Base.extend({
 
   install: function () {
     var generator = this;
-    this.npmInstall("", function() {
+    // Runs `npm install`
+    generator.npmInstall("", function() {
       // Check for a global gulp module
       generator.spawnCommand('npm', ['ls', '-g', '--parseable', 'gulp'])
         .on('exit', function(code) {
           if(code === 1) {
-            logWarning('no global gulp...');
-            installLocalGulpAndBuild(generator);
+            util.logWarningMessage('no global gulp...');
+            installLocalGulp(generator)
+              .on('exit', function() {
+                util.logWarningMessage('gulp installed locally');
+                buildGulpWithNpm(generator).on('exit', util.displayGulpInstallWarning);
+              });
           } else {
-            generator.spawnCommand('gulp', ['build']);
+            buildGulpWithNpm(generator);
           }
         });
     });

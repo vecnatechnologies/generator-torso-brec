@@ -5,6 +5,8 @@
 'use strict';
 var path = require('path');
 var fs = require('fs');
+var _ = require('underscore');
+var messages = require('./messages');
 
 function escapeRegExp(str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
@@ -61,7 +63,35 @@ function rewriteFile(args) {
   fs.writeFileSync(fullPath, body);
 }
 
+/**
+ * Outputs a warning message to the console
+ *
+ * Example:
+ *
+ * logWarningMessage('Help, I\'m trapped in a JavaScript module!');
+ *
+ * $ <!> Help, I'm trapped in a JavaScript module!
+ *
+ * @param  {String} message to be output to console as a warning message
+ */
+function logWarningMessage(message) {
+  var warningMessage = messages.compileWarningMessage(message);
+  console.log(warningMessage);
+}
+
+/**
+ * Displays a message in the console that warns the user that gulp was installed
+ * locally and gives the user the steps required use a local gulp installation
+ * and how to remove the local installation of gulp and install a global installation.
+ */
+function displayGulpInstallWarning() {
+  var gulpInstallWarningMessage = messages.compileGulpInstallWarningMessage();
+  console.log(gulpInstallWarningMessage);
+}
+
 module.exports = {
   rewrite: rewrite,
-  rewriteFile: rewriteFile
+  rewriteFile: rewriteFile,
+  logWarningMessage: logWarningMessage,
+  displayGulpInstallWarning: displayGulpInstallWarning
 };
