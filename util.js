@@ -84,14 +84,13 @@ function logWarningMessage(message) {
  * locally and gives the user the steps required use a local gulp installation
  * and how to remove the local installation of gulp and install a global installation.
  */
-function displayGulpInstallWarning() {
-  var gulpInstallWarningMessage = messages.compileGulpInstallWarningMessage();
-  console.log(gulpInstallWarningMessage);
+function logGulpInstallWarning() {
+  console.log(messages.gulpInstallWarningMessage);
 }
 
 module.exports = {
   rewrite: rewrite,
   rewriteFile: rewriteFile,
   logWarningMessage: logWarningMessage,
-  displayGulpInstallWarning: displayGulpInstallWarning
+  logGulpInstallWarning: logGulpInstallWarning
 };

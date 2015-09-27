@@ -1,44 +1,16 @@
 var _ = require('underscore');
-var color = require('cli-color');
+var colors = require('colors');
 
 // Set underscore's template system to use handlebars syntax
 _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g
 };
 
-/**
- * Warning message that is displayed post-build when the user does
- * not have a global instillation of gulp.
- *
- * Any indentation added to this string will also show up as output.
- * @type {String}
- */
-var gulpInstallWarningRaw =
-'\n{{warningSign}} We have installed gulp {{locally}} to build your-torso-project. \
-To use the gulp tasks setup by quick-sip, you will need to use the \
-npm run cli with the following command:\n\
-  {{localGulpCmdSubTemplate}}\n\n\
-To remove gulp {{locally}} and setup gulp {{globally}}, run the following command:\n\
-  {{setupGlobalGulpCmdSubTemplate}}';
-
-/**
- * Command that the user can run to execute gulp tasks.
- * @type {String}
- */
-var localGulpCmdRaw = '{{prompt}} npm run gulp <task>';
-
-/**
- * Command that the user can run to uninstall a local gulp installation
- * and install gulp globally.
- * @type {String}
- */
-var setupGlobalGulpCmdRaw = '{{prompt}} npm uninstall gulp && npm install -g gulp';
-
-/**
- * Template for the message output from logWarningMessage.
- * @type {String}
- */
-var warningMessageRaw = '{{warningSign}} {{message}}';
+// Configurations for colors module
+colors.setTheme({
+  warning: 'cyan',
+  command: 'magenta'
+});
 
 /**
  * Object containing context for template compilation
@@ -46,23 +18,70 @@ var warningMessageRaw = '{{warningSign}} {{message}}';
  * @type {Object}
  */
 var stylingContext = {
-  warningSign: color.bold.cyanBright('<' + color.bold.redBright('!') + '>'),
-  prompt: color.cyanBright('$'),
-  locally: color.yellow('locally'),
-  globally: color.yellow('globally')
+  warningSign: ('<'.cyan + '!'.red + '>'.cyan),
+  prompt: '$'.cyan,
+  locally: 'locally'.yellow,
+  globally: 'globally'.yellow
 };
 
 /**
- * Styles command strings
- * @type {Function}
+ * Creates a template function for a warning message
+ * @param  {String} rawString template to be compiled
+ * @return {Function}         wrapped underscore template function
  */
-var styleCommand = color.magenta;
+function warningTemplate(rawString) {
+  var template = _.template(rawString);
+  return function (context) {
+    return template(context).warning;
+  }
+}
 
 /**
- * Styles warning strings
- * @type {[type]}
+ * Creates a template function for a command message
+ * @param  {String} rawString template to be compiled
+ * @return {Function}         wrapped underscore template function
  */
-var styleWarning = color.cyanBright;
+function commandTemplate(rawString) {
+  var template = _.template(rawString);
+  return function (context) {
+    return template(context).command;
+  }
+}
+
+/**
+ * Template function for the warning message that is displayed post-build when
+ * the user does not have a global instillation of gulp.
+ *
+ * Any indentation added to this string will also show up as output.
+ * @type {Function}
+ */
+var gulpInstallWarningTemplate = warningTemplate(
+'\n{{warningSign}} We have installed gulp {{locally}} to build your-torso-project. \
+To use the gulp tasks setup by quick-sip, you will need to use the \
+npm run cli with the following command:\n\
+  {{localGulpCommand}}\n\n\
+To remove gulp {{locally}} and setup gulp {{globally}}, run the following command:\n\
+  {{setupGlobalGulpCommand}}'
+  );
+
+/**
+ * Template function for the command that the user can run to execute gulp tasks.
+ * @type {Function}
+ */
+var localGulpCmdTemplate = commandTemplate('{{prompt}} npm run gulp <task>');
+
+/**
+ * Template function for the command that the user can run to uninstall a local gulp installation
+ * and install gulp globally.
+ * @type {Function}
+ */
+var setupGlobalGulpCmdTemplate = commandTemplate('{{prompt}} npm uninstall gulp && npm install -g gulp');
+
+/**
+ * Template function for the message output from logWarningMessage.
+ * @type {Function}
+ */
+var warningMessageTemplate = warningTemplate('{{warningSign}} {{message}}');
 
 /**
  * Creates a new object containing both the stylingContext
@@ -80,20 +99,12 @@ function generateContext(templateContext) {
  * @return {String} the styled message for use in yeoman installation
  */
 function compileGulpInstallWarningMessage() {
-   var localGulpCmdTemplate = _.template(localGulpCmdRaw),
-      setupGlobalGulpCmdTemplate = _.template(setupGlobalGulpCmdRaw),
-      gulpInstallWarningTemplate = _.template(gulpInstallWarningRaw),
-      localGulpCmd, setupGlobalGulpCmd, gulpInstallWarning, context;
-
-  localGulpCmd = styleCommand(localGulpCmdTemplate(stylingContext));
-  setupGlobalGulpCmd = styleCommand(setupGlobalGulpCmdTemplate(stylingContext));
-
-  context = generateContext({
-              localGulpCmdSubTemplate: localGulpCmd,
-              setupGlobalGulpCmdSubTemplate: setupGlobalGulpCmd
+  var context = generateContext({
+              localGulpCommand: localGulpCmdTemplate(stylingContext),
+              setupGlobalGulpCommand: setupGlobalGulpCmdTemplate(stylingContext)
             });
 
-  return styleWarning(gulpInstallWarningTemplate(context));
+  return gulpInstallWarningTemplate(context);
 }
 
 /**
@@ -102,14 +113,11 @@ function compileGulpInstallWarningMessage() {
  * @return {String}         the styled warning message
  */
 function compileWarningMessage(message) {
-  var warningMessageTemplate = _.template(warningMessageRaw),
-      warningMessage, context;
-
-  context = generateContext({message: message});
-  return styleWarning(warningMessageTemplate(context));
+  var context = generateContext({message: message});
+  return warningMessageTemplate(context);
 }
 
 module.exports = {
-  compileGulpInstallWarningMessage: compileGulpInstallWarningMessage,
+  gulpInstallWarningMessage: compileGulpInstallWarningMessage(),
   compileWarningMessage: compileWarningMessage
 };

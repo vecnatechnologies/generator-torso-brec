@@ -55,7 +55,7 @@ module.exports = generators.Base.extend({
   install: function () {
     var generator = this;
     // Runs `npm install`
-    generator.npmInstall("", function() {
+    generator.npmInstall('', function() {
       // Check for a global gulp module
       generator.spawnCommand('npm', ['ls', '-g', '--parseable', 'gulp'])
         .on('exit', function(code) {
@@ -64,7 +64,7 @@ module.exports = generators.Base.extend({
             installLocalGulp(generator)
               .on('exit', function() {
                 util.logWarningMessage('gulp installed locally');
-                buildGulpWithNpm(generator).on('exit', util.displayGulpInstallWarning);
+                buildGulpWithNpm(generator).on('exit', util.logGulpInstallWarning);
               });
           } else {
             buildGulpWithNpm(generator);
