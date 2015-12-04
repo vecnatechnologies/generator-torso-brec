@@ -7,18 +7,7 @@
 3 info using node@v4.2.2
 4 info git [ 'status', '--porcelain' ]
 5 verbose stack Error: Git working directory not clean.
-5 verbose stack M app/index.js
-5 verbose stack M app/templates/app/index.html
-5 verbose stack D app/templates/app/scripts/home/home-template.hbs
-5 verbose stack D app/templates/app/scripts/home/homeView.js
-5 verbose stack D app/templates/app/scripts/main.js
-5 verbose stack D app/templates/app/styles/app.scss
-5 verbose stack M app/templates/gulpfile.js
-5 verbose stack M app/templates/package.json
-5 verbose stack D app/templates/torso-modules/view.js
-5 verbose stack D helpers/validateDirectory.js
-5 verbose stack M package.json
-5 verbose stack D view/index.js
+5 verbose stack M npm-debug.log
 5 verbose stack     at /usr/local/lib/node_modules/npm/lib/version.js:171:21
 5 verbose stack     at ChildProcess.exithandler (child_process.js:194:7)
 5 verbose stack     at emitTwo (events.js:87:13)
@@ -34,18 +23,7 @@
 9 error node v4.2.2
 10 error npm  v2.14.7
 11 error Git working directory not clean.
-11 error M app/index.js
-11 error M app/templates/app/index.html
-11 error D app/templates/app/scripts/home/home-template.hbs
-11 error D app/templates/app/scripts/home/homeView.js
-11 error D app/templates/app/scripts/main.js
-11 error D app/templates/app/styles/app.scss
-11 error M app/templates/gulpfile.js
-11 error M app/templates/package.json
-11 error D app/templates/torso-modules/view.js
-11 error D helpers/validateDirectory.js
-11 error M package.json
-11 error D view/index.js
+11 error M npm-debug.log
 12 error If you need help, you may report this error at:
 12 error     <https://github.com/npm/npm/issues>
 13 verbose exit [ 1, true ]
