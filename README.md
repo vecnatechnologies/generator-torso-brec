@@ -1,22 +1,22 @@
 # generator-torso-brec
-Yeoman generator for a project that uses torso and brec
+Yeoman generator for a project that uses backbone-torso and Ratchet
 
-> npm install --global generator-torso-brec  
-> yo torso-brec
+> npm install --global generator-torso-ratchet
+> yo torso-ratchet
 
 returns:
-  
-  ├─ .gitignore  
-  ├─ package.json  
-  ├─ gulpfile.js  
-  ├─ dist  
-  └─ app  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ├─ main.js  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ├─ app.scss  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ├─ index.html  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     └─ home  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        ├─ homeView.js  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        └─ home-template.hbs  
+
+  ├─ .gitignore
+  ├─ package.json
+  ├─ gulpfile.js
+  ├─ dist
+  └─ app
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ├─ main.js
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ├─ app.scss
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ├─ index.html
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     └─ home
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        ├─ homeView.js
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        └─ home-template.hbs
 
 ## Credits
 Originally developed by [Vecna Technologies, Inc.](http://www.vecna.com/) and open sourced as part of its community service program. See the LICENSE file for more details.
