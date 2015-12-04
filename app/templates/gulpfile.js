@@ -8,7 +8,7 @@ var browserifyBundler, copyResources, buildStyles, buildApp, packageApp,
     watchify = require('watchify'),
     browserify = require('browserify'),
     runSequence = require('run-sequence'),
-    brec = require('brec-tables'),
+    ratchet = require('ratchet-npm'),
     paths = {
       app: 'app',
       dist: 'dist'
@@ -40,7 +40,7 @@ gulp.task('copy-resources', copyResources);
 buildStyles = function() {
   return gulp.src([paths.app + '/styles/**/*.scss'])
   .pipe($.sass({
-    includePaths: [brec.base.sass, brec.tables.sass],
+    includePaths: [ratchet.scss],
     onSuccess: function(err) {
       log.mark('[SUCCESS] {Sass} ' + err.css.length + ' bytes written (' + (err.stats.duration / 1000.0) + ' seconds)');
     },

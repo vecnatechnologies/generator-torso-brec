@@ -1,7 +1,7 @@
 {
-  "name": "generator-torso-brec",
-  "version": "0.1.3",
-  "description": "Generator for a backbone-torso application that uses BREC tables",
+  "name": "generator-torso-ratchet",
+  "version": "0.1.0",
+  "description": "Generator for a backbone-torso application that uses Ratchet",
   "main": "index.js",
   "dependencies": {
     "underscore": "1.8.3",
@@ -10,18 +10,22 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/vecnatechnologies/generator-torso-brec.git"
+    "url": "https://github.com/mattWillis/generator-torso-ratchet.git"
   },
   "keywords": [
     "backbone-torso",
     "torso",
-    "brec",
-    "brec-base",
-    "brec-tables"
+    "ratchet"
   ],
   "author": "Kent Willis <kentmw@gmail.com>",
+  "contributors": [
+    {
+      "name": "Matthew Willis",
+      "email": "mewillis21@gmail.com"
+    }
+  ],
   "bugs": {
-    "url": "https://github.com/vecnatechnologies/generator-torso-brec/issues"
+    "url": "https://github.com/mattWillis/generator-torso-ratchet/issues"
   },
-  "homepage": "https://github.com/vecnatechnologies/generator-torso-brec"
+  "homepage": "https://github.com/mattWillis/generator-torso-ratchet"
 }
