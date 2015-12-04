@@ -1,16 +1,39 @@
 var generators = require('yeoman-generator');
 var _ = require('underscore');
+var util = require('../util');
 
 var paths = {
   'app/index.html': {},
-  'app/scripts/home/homeView.js': {},
-  'app/scripts/home/home-template.hbs': {},
-  'app/styles/app.scss': {},
-  'app/scripts/main.js': {},
+  'app/home/homeView.js': {},
+  'app/home/home-template.hbs': {},
+  'app/home/_home.scss': {},
+  'app/app.scss': {},
+  'app/app.js': {},
+  'app/router.js': {},
   'dist/.keepme': {},
   'package.json': {},
   'gulpfile.js': {}
 };
+
+/**
+ * Spawns a child process for the `npm run gulp watch` command
+ *
+ * @param  {Object} yeoman-generator
+ * @return {Object} ChildProcess object for the command
+ */
+function buildGulpWithNpm(generator) {
+  return generator.spawnCommand('npm', ['run', 'gulp', 'watch']);
+}
+
+/**
+ * Spawns a child process for the `npm install gulp --save-dev` command
+ *
+ * @param  {Object} yeoman-generator
+ * @return {Object} ChildProcess object for the command
+ */
+function installLocalGulp(generator) {
+  return generator.spawnCommand('npm', ['install', 'gulp', '--save-dev']);
+}
 
 module.exports = generators.Base.extend({
   writing: function() {
@@ -31,8 +54,22 @@ module.exports = generators.Base.extend({
 
   install: function () {
     var generator = this;
-    this.npmInstall("", function() {
-      generator.spawnCommand('gulp', ['build']);
+    // Runs `npm install`
+    generator.npmInstall('', function() {
+      // Check for a global gulp module
+      generator.spawnCommand('npm', ['ls', '-g', '--parseable', 'gulp'])
+        .on('exit', function(code) {
+          if(code === 1) {
+            util.logWarningMessage('no global gulp...');
+            installLocalGulp(generator)
+              .on('exit', function() {
+                util.logWarningMessage('gulp installed locally');
+                buildGulpWithNpm(generator).on('exit', util.logGulpInstallWarning);
+              });
+          } else {
+            buildGulpWithNpm(generator);
+          }
+        });
     });
   }
 });

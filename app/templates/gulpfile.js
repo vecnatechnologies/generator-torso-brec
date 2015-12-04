@@ -40,17 +40,16 @@ gulp.task('copy-resources', copyResources);
 buildStyles = function() {
   return gulp.src([paths.app + '/styles/**/*.scss'])
   .pipe($.sass({
-    includePaths: [ratchet.scss],
-    onSuccess: function(err) {
-      log.mark('[SUCCESS] {Sass} ' + err.css.length + ' bytes written (' + (err.stats.duration / 1000.0) + ' seconds)');
-    },
-    onError: function(err) {
-      log.error('[ERROR] {Sass} @ ' + (new Date()));
-      log.warn('Message: ' + err.message);
-      log.warn('in file --> ' + err.file);
-    }
+    includePaths: [ratchet.scss]
+  }).on('error', $.sass.logError))
+  .pipe($.concatUtil('app.css'))
+  .pipe($.rucksack({
+    autoprefixer: true
   }))
-  .pipe(gulp.dest(paths.dist + '/styles'))
+  .pipe($.util.env.type === 'production' ? $.cssmin() : $.util.noop())
+  .pipe(gulp.dest(paths.dist))
+  .pipe($.util.env.type !== 'production' ? browserSync.reload({stream: true}) : $.util.noop())
+  .pipe($.util.env.type !== 'production' ? $.notify('Build Styles Complete') : $.util.noop());
 };
 gulp.task('build-styles', buildStyles);
 
@@ -68,7 +67,7 @@ buildApp = function() {
     .pipe($.util.env.type !== 'production' ? $.sourcemaps.init({loadMaps: true}) : $.util.noop())
     .pipe($.util.env.type === 'production' ? $.uglify() : $.util.noop())
     .pipe($.util.env.type !== 'production' ? $.sourcemaps.write('./') : $.util.noop())
-    .pipe(gulp.dest(paths.dist + '/scripts'));
+    .pipe(gulp.dest(paths.dist));
 };
 gulp.task('build-app', buildApp);
 
@@ -86,6 +85,19 @@ gulp.task('build', function(callback) {
     callback);
 });
 
+
+/*----------  Start Browser Sync  ----------*/
+
+gulp.task('serve', function() {
+  browserSync({
+    server: {
+      baseDir: paths.dist
+    },
+    open: false
+  });
+});
+
+
 /* Watch build */
 gulp.task('watch', function() {
   browserifyBundler = watchify(browserifyBundler);
@@ -100,4 +112,6 @@ gulp.task('watch', function() {
       '!' + paths.app + '/**/*.+(hbs|js|scss)',
     ], copyResources);
   });
+  gulp.start('serve');
+
 });
