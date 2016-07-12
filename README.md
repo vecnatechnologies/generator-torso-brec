@@ -1,4 +1,4 @@
-# DEPRECATED - use generator-torso
+# [DEPRECATED - use generator-torso](https://github.com/vecnatechnologies/generator-torso)
 
 # generator-torso-brec
 
