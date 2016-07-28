@@ -5,8 +5,6 @@
 
 [Yeoman](http://yeoman.io/ "yoeman's website") can scaffold out a new application using prebuilt generators. This generator sets up a project using [backbone-torso](https://github.com/vecnatechnologies/backbone-torso) (a [backbone](http://backbonejs.org)-based framework) and [brec](https://github.com/vecnatechnologies/brec-base) (beautiful, responsive, ergonomic, and configurable) styling and plugins.
 
-You will want gulp globally installed before you begin.
-
 ### Install yoeman
 ```
 > npm install -g yo
